@@ -3,12 +3,29 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* L'Oréal brand logo styling */
+.brand-logo {
+  width: 240px;
+  margin-bottom: 10px;
 }
 
 /* —— body + fonts —— */
 body {
+  background-color: #fffaf7; /* soft neutral like L’Oréal’s site */
+  color: #231f20; /* deep charcoal */
   font-family: "Montserrat", Arial, Helvetica, sans-serif;
-  color: #333;
   display: flex;
   justify-content: center;
 }
@@ -40,31 +57,125 @@ body {
   border: 1px solid #000;
   padding: 20px;
   font-size: 18px;
-  line-height: 1.5;
-  overflow-y: auto;
-  background: #fafafa;
-  white-space: pre-line;
-}
-
-/* messages */
-.msg {
-  margin-bottom: 14px;
+  .chat-window {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    background: #fffaf7;
+    border: 1px solid #000;
+    overflow-y: auto;
+    height: 360px;
+    border-radius: 12px;
+  }
   line-height: 1.5;
 }
 
 .msg.user {
+  background-color: #f2f2f2;
   color: #000;
+  padding: 10px 14px;
+  border-radius: 16px;
+  align-self: flex-end;
+  max-width: 70%;
+  margin-left: auto;
 }
 
 .msg.ai {
-  color: #666666;
+  background-color: #e6e6e6;
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 16px;
+  align-self: flex-start;
+  max-width: 70%;
+  margin-right: auto;
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 360px;
+  border: 1px solid #000;
+  padding: 20px;
+  font-size: 15px; /* smaller text for less overwhelming paragraphs */
+  overflow-y: auto;
+  background: #fffaf7; /* Soft, elegant cream */
+  white-space: pre-line;
+}
+
+/* Base message bubble */
+.msg {
+  max-width: 75%;
+  padding: 14px 20px;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+  border-radius: 20px;
+  word-wrap: break-word;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  animation: fadeIn 0.4s ease-in-out;
+  animation-fill-mode: both;
+  transition: transform 0.2s;
+}
+
+/* User message bubble (right) */
+.msg.user {
+  align-self: flex-end;
+  background: linear-gradient(-145deg, #c7a26a, #c7a26a);
+  border: 2px solid #c7a26a; /* Gold */
+  color: #231f20;
+  text-align: left;
+  border-top-right-radius: 4px; /* subtle asymmetry */
+}
+
+/* Bot message bubble (left) */
+.msg.ai {
+  align-self: flex-start;
+  background: linear-gradient(145deg, #c0002d, #c0002d);
+  border: 2px solid #c0002d; /* Red */
+  color: #ffffff;
+  text-align: left;
+  border-top-left-radius: 4px;
+}
+
+/* Space between Q and A */
+.msg + .msg.ai {
+  margin-top: -10px;
+}
+
+.msg.user + .msg.user,
+.msg.ai + .msg.ai {
+  margin-top: 0;
+}
+
+.msg {
+  margin-bottom: 24px;
+}
+
+/* Hover (optional): adds liveliness */
+.msg:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* input row */
 .chat-form {
   display: flex;
   gap: 12px;
-  margin-top: 16px;
+  margin-top: 40px; /* increased margin to push input field further from footer */
 }
 
 .chat-form input {
@@ -102,6 +213,11 @@ body {
   background: #666666;
 }
 
+/* Make the send icon gold on hover */
+.chat-form button:hover .material-icons {
+  color: #c7a26a;
+}
+
 .chat-form button:focus {
   outline: 2px solid #000;
   outline-offset: 2px;
@@ -122,10 +238,18 @@ body {
 
 /* footer */
 .site-footer {
-  margin: 60px 0 40px;
+  background-color: #000000;
+  color: #c7a26a; /* gold */
+  padding: 24px 0 24px 0; /* reduced padding for a slimmer footer */
   text-align: center;
   font-size: 14px;
-  color: #666;
+  border-top: 1px solid #333;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .site-footer nav {
@@ -133,11 +257,12 @@ body {
 }
 
 .site-footer a {
-  margin: 0 8px;
-  color: #000;
+  margin: 0 12px;
+  color: #c7a26a;
   text-decoration: none;
+  transition: color 0.3s;
 }
 
 .site-footer a:hover {
-  color: #666666;
+  color: #c0002d; /* L’Oréal red */
 }
